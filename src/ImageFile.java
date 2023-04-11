@@ -1,8 +1,8 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -26,12 +26,14 @@ public class ImageFile extends App {
     }
 
     static Image img = new Image(fileStream);
+    static File fileIn, fileOut;
     static final FileChooser fileChooser = new FileChooser();
     static ImageView display = new ImageView();
 
     public static void openFile(Stage stage) throws FileNotFoundException {
-        File file = fileChooser.showOpenDialog(stage);
-        fileStream = new FileInputStream(file);
+        fileIn = fileChooser.showOpenDialog(stage);
+        fileOut = fileIn;
+        fileStream = new FileInputStream(fileIn);
         img = new Image(fileStream);
         ImageFile iFile = new ImageFile();
         // img is a public class variable of class ImageFile
@@ -40,7 +42,8 @@ public class ImageFile extends App {
         Image imgFile = iFile.img;
         updateD(stage, imgFile);
     }
-    public static void updateD(Stage stage, Image imgFile) throws FileNotFoundException {
+
+    public static void updateD(Stage stage, Image imgFile) {
         //Setting image to the image view
         display.setImage(imgFile);
         //Setting the image view parameters
@@ -68,32 +71,25 @@ public class ImageFile extends App {
         // MenuItem creates the submenu entries in a dropdown
         // visible when the Menu is clicked
         MenuItem openFile = new MenuItem("Open");
-        openFile.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                // code to open a file with a file picker would go here
-                // maybe using methods from ImageFile class
-                try {
-                    ImageFile.openFile(stage);
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+        openFile.setOnAction(t -> {
+            // code to open a file with a file picker would go here
+            // maybe using methods from ImageFile class
+            try {
+                ImageFile.openFile(stage);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
 
 
         MenuItem saveFile = new MenuItem("Save");
-        saveFile.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                // code to save a file would go here
-
-            }
+        saveFile.setOnAction(t -> {
+            // code to save a file would go here
+            ImageFile.saveImageFile();
         });
 
         MenuItem closeFile = new MenuItem("Close");
-        closeFile.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-            }
-        });
+        closeFile.setOnAction(t -> Platform.exit());
 
         // places the submenu MenuItems in the dropdown of the Menu
         menuFile.getItems().addAll(openFile, saveFile, closeFile);
@@ -113,14 +109,25 @@ public class ImageFile extends App {
         stage.show();
     }
 
-}
+    //Save Image File
+    public static void saveImageFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileOut);
+            String content = "test";
+            byte[] bytes = content.getBytes();
+            fos.write(bytes);
+            fos.close();
+            System.out.println("File successfully saved. ");
+        }
+        catch (IOException e){
+            System.out.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
-//save image file
-//import java.io.*;
 
-/**
-public class SaveImageFile {
+/** //save image file
     public static void main(String[] args) {
         try {
             FileOutputStream fos = new FileOutputStream("src\\waveworld5.png");
@@ -133,8 +140,6 @@ public class SaveImageFile {
             System.out.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
-
-    }
+    }*/
 
 }
- */
