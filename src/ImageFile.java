@@ -125,21 +125,4 @@ public class ImageFile extends App {
         }
     }
 
-
-
-/** //save image file
-    public static void main(String[] args) {
-        try {
-            FileOutputStream fos = new FileOutputStream("src\\waveworld5.png");
-            byte[] bytes = content.getBytes();
-            fos.write(bytes);
-            fos.close();
-            System.out.println("File successfully saved. ");
-        }
-        catch (IOException e){
-            System.out.println("An error occurred: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }*/
-
 }
