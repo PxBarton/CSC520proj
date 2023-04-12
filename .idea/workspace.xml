@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="new files">
-      <change afterPath="$PROJECT_DIR$/src/FileUtilities.java" afterDir="false" />
+    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="utility functions, filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSC520proj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CSC520proj.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ImageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +17,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="647c9f42-aa8b-45fb-8562-a8e84dc2551f" />
+        <option name="url" value="https://github.com/PxBarton/CSC520proj.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -60,12 +73,20 @@
       <option name="project" value="LOCAL" />
       <updated>1680654671039</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="utility functions, filter">
+      <created>1681324044347</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681324044347</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
     <MESSAGE value="new files" />
-    <option name="LAST_COMMIT_MESSAGE" value="new files" />
+    <MESSAGE value="utility functions, filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="utility functions, filter" />
   </component>
 </project>

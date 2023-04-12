@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.io.FileInputStream;
@@ -59,6 +60,7 @@ public class App extends Application {
             public void handle(ActionEvent t) {
                 // code to open a file with a file picker would go here
                 // maybe using methods from ImageFile class
+
             }
         });
 
@@ -85,11 +87,22 @@ public class App extends Application {
 
         // --- Menu View
         Menu menuFilter = new Menu("Filter");
+
         MenuItem blurImage = new MenuItem("Blur");
         blurImage.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
-                // code to open a file with a file picker would go here
-                // maybe using methods from ImageFile class
+                // filter, popup
+                Stage blurWindow = new Stage();
+                ImageFilter blurImage = new ImageFilter();
+
+                try {
+                    VBox filterBox = blurImage.blur(imgFile);
+                    Scene blurScene = new Scene(filterBox, 600, 600);
+                    blurWindow.setScene(blurScene);
+                    blurWindow.show();
+
+                }
+                catch (IOException e) {}
             }
         });
 

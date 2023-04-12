@@ -21,6 +21,7 @@ import org.opencv.core.CvType;
 public class FileUtilities {
 
     public static Mat convertToMat(Image src) {
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         int width = (int)src.getWidth();
         int height = (int)src.getHeight();
         byte[] buffer = new byte[width * height *4];

@@ -2,7 +2,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
+import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.application.Application;
@@ -14,15 +16,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.stage.Popup;
 import javax.imageio.ImageIO;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.CvType;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -46,12 +46,15 @@ public class ImageFilter {
     }
 
     public VBox blur(Image img) throws IOException {
-        //Size ksize;
-        src = FileUtilities.convertToMat(img);
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        //String file ="src\\waveworld5.png";
         //src = Imgcodecs.imread(file);
+        //Mat mat = new Mat(20, 20, CvType.CV_8UC3);
+        src = FileUtilities.convertToMat(img);
         WritableImage writableImage = FileUtilities.matToImage(src);
         //Setting the image view;
         ImageView imageView = new ImageView(writableImage);
+        //ImageView imageView = new ImageView(img);
         imageView.setX(50);
         imageView.setY(25);
         imageView.setFitHeight(400);
@@ -60,11 +63,11 @@ public class ImageFilter {
 
         Label label1 = new Label("blur amount");
         //Setting the slider
-        slider1 = new Slider(0.0, 5, 1);
+        slider1 = new Slider(0.0, 50, 0);
         slider1.setShowTickLabels(true);
         slider1.setShowTickMarks(true);
-        slider1.setMajorTickUnit(1);
-        slider1.setBlockIncrement(0.05);
+        slider1.setMajorTickUnit(5);
+        slider1.setBlockIncrement(1);
 
         slider1.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue <?extends Number>observable, Number oldValue, Number newValue){
@@ -81,6 +84,10 @@ public class ImageFilter {
             }
         }
         });
+
+
+        //vbox.getChildren().add(imageView);
+
         vbox.getChildren().addAll(slider1, imageView);
         return vbox;
         /*
@@ -112,6 +119,29 @@ public class ImageFilter {
 +        });
 +        */
     }
+    public WritableImage matToImage(Mat image) throws IOException {
+        MatOfByte matOfByte = new MatOfByte();
+        Imgcodecs.imencode(".jpg", image, matOfByte);
+        //Storing the encoded Mat in a byte array
+        byte[] byteArray = matOfByte.toArray();
+        //Displaying the image
+        InputStream in = new ByteArrayInputStream(byteArray);
+        BufferedImage bufImage = ImageIO.read(in);
+        System.out.println("Image Loaded");
+        WritableImage writableImage = SwingFXUtils.toFXImage(bufImage, null);
+        return writableImage;
+    }
 
+    public static Mat convertToMat(Image src) {
+        int width = (int)src.getWidth();
+        int height = (int)src.getHeight();
+        byte[] buffer = new byte[width * height *4];
+        PixelReader reader= src.getPixelReader();
+        WritablePixelFormat<ByteBuffer> format = WritablePixelFormat.getByteBgraInstance();
+        reader.getPixels(0, 0, width, height, format, buffer, 0, width * 4);
+        Mat mat = new Mat(height, width, CvType.CV_8U);
+        mat.put(0, 0, buffer);
+        return mat;
+    }
 
 }
