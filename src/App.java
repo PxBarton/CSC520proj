@@ -85,6 +85,15 @@ public class App extends Application {
 
         // --- Menu View
         Menu menuFilter = new Menu("Filter");
+        MenuItem blurImage = new MenuItem("Blur");
+        blurImage.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                // code to open a file with a file picker would go here
+                // maybe using methods from ImageFile class
+            }
+        });
+
+        menuFilter.getItems().addAll(blurImage);
 
         // combines the Menus on the MenuBar
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
