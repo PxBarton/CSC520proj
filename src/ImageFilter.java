@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -13,12 +15,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
-import javafx.stage.Popup;
 import javax.imageio.ImageIO;
+import javafx.scene.control.Button;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -35,7 +36,11 @@ public class ImageFilter {
     Mat src;
     Slider slider1;
 
+    boolean open = true;
+
     VBox vbox = new VBox();
+
+    WritableImage currentImage;
 
     public void ImageFilter() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -45,13 +50,15 @@ public class ImageFilter {
         vbox.setPadding(new Insets(0, 10, 0, 10));
     }
 
-    public VBox blur(Image img) throws IOException {
+    public VBox blur(ImageDisplay imageDisplay, ImageFile original, Stage window) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         //String file ="src\\waveworld5.png";
         //src = Imgcodecs.imread(file);
         //Mat mat = new Mat(20, 20, CvType.CV_8UC3);
+        Image img = imageDisplay.getImage();
         src = FileUtilities.convertToMat(img);
         WritableImage writableImage = FileUtilities.matToImage(src);
+        //WritableImage currentImage;
         //Setting the image view;
         ImageView imageView = new ImageView(writableImage);
         //ImageView imageView = new ImageView(img);
@@ -77,6 +84,7 @@ public class ImageFilter {
                 Mat dest = new Mat(src.rows(), src.cols(), src.type());
                 Imgproc.blur(src, dest, new Size(newValue.doubleValue(), newValue.doubleValue()));
                 //Core.addWeighted(src, alpha, dest, beta, 0, dest);
+                currentImage = FileUtilities.matToImage(dest);
                 imageView.setImage(FileUtilities.matToImage(dest));
             }
             catch(Exception e) {
@@ -85,40 +93,31 @@ public class ImageFilter {
         }
         });
 
+        Button bt1 = new Button("OK");
+        Button bt2 = new Button("Cancel");
 
-        //vbox.getChildren().add(imageView);
+        bt1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
 
-        vbox.getChildren().addAll(slider1, imageView);
+            }
+        });
+
+        bt2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                original.setImage(currentImage);
+                open = false;
+            }
+        });
+
+        vbox.getChildren().addAll(slider1, imageView, bt1, bt2);
         return vbox;
-        /*
-+        final HBox hbox = new HBox();
-+        hbox.setAlignment(Pos.CENTER);
-+        hbox.setSpacing(10);
-+        hbox.setPadding(new Insets(0, 10, 0, 10));
-+        final Popup popup = new Popup();
-+        final ImageView popImg = new ImageView(imgFile);
-+        hbox.getChildren().add(popImg);
-+        popup.getContent().add(hbox);
-+        popImg.setFitHeight(400);
-+        popImg.setFitWidth(400);
-+        popup.show(App.start.stage);
-+
-+         */
 
-                               /*
-+        final Popup popup = new Popup();
-+        //final ImageView popupImage = new ImageView(image.getImage());
-+        popup.getContent().add(imageView);
-+        popup.setOnShown(new EventHandler<WindowEvent>(){
-+            @Override
-+            public void handle(WindowEvent t) {
-+                popupImage.setFitHeight(400);
-+                popupImage.setFitWidth(400);
-+
-+            }
-+        });
-+        */
     }
+
+
+    /*
     public WritableImage matToImage(Mat image) throws IOException {
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".jpg", image, matOfByte);
@@ -143,5 +142,7 @@ public class ImageFilter {
         mat.put(0, 0, buffer);
         return mat;
     }
+
+     */
 
 }

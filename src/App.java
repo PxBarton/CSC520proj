@@ -26,12 +26,15 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         // just for basic test run, to display an image from a file
         // create a new ImageFile, this is our class
-        ImageFile file = new ImageFile();
+        FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
+        Image source = new Image(fileStream);
+        ImageFile file = new ImageFile(source);
         // img is a public class variable of class ImageFile
         // img holds the actual image data
         // Image is the JavaFX image class object
-        Image imgFile = file.img;
-        ImageView display = new ImageView(imgFile);
+        ImageDisplay imageDisplay = new ImageDisplay();
+        imageDisplay.setImage(file.getImage());
+        ImageView display = new ImageView(file.getImage());
         display.setX(50);
         display.setY(25);
         display.setFitHeight(400);
@@ -96,10 +99,13 @@ public class App extends Application {
                 ImageFilter blurImage = new ImageFilter();
 
                 try {
-                    VBox filterBox = blurImage.blur(imgFile);
+                    VBox filterBox = blurImage.blur(imageDisplay, file, blurWindow);
                     Scene blurScene = new Scene(filterBox, 600, 600);
                     blurWindow.setScene(blurScene);
                     blurWindow.show();
+                    if (blurImage.open == false) {
+                        blurWindow.close();
+                    }
 
                 }
                 catch (IOException e) {}
