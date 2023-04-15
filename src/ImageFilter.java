@@ -36,8 +36,6 @@ public class ImageFilter {
     Mat src;
     Slider slider1;
 
-    boolean open = true;
-
     VBox vbox = new VBox();
 
     WritableImage currentImage;
@@ -50,7 +48,7 @@ public class ImageFilter {
         vbox.setPadding(new Insets(0, 10, 0, 10));
     }
 
-    public VBox blur(ImageDisplay imageDisplay, ImageFile original, Stage window) throws IOException {
+    public VBox blur(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         //String file ="src\\waveworld5.png";
         //src = Imgcodecs.imread(file);
@@ -85,7 +83,7 @@ public class ImageFilter {
                 Imgproc.blur(src, dest, new Size(newValue.doubleValue(), newValue.doubleValue()));
                 //Core.addWeighted(src, alpha, dest, beta, 0, dest);
                 currentImage = FileUtilities.matToImage(dest);
-                imageView.setImage(FileUtilities.matToImage(dest));
+                imageView.setImage(currentImage);
             }
             catch(Exception e) {
                 System.out.println("");
@@ -99,6 +97,9 @@ public class ImageFilter {
         bt1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                original.setImage(imageView.getImage());
+                window.close();
+                mainDisplay.setImage(original.getImage());
 
             }
         });
@@ -106,8 +107,7 @@ public class ImageFilter {
         bt2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                original.setImage(currentImage);
-                open = false;
+
             }
         });
 

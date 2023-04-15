@@ -15,6 +15,7 @@ public class ImageFile {
 
     public void setImage(Image image) {
         img = image;
+        System.out.println("image file set" );
     }
 
     public void setImage(WritableImage image) {
@@ -24,6 +25,8 @@ public class ImageFile {
 
 
     public Image getImage() {
+        System.out.println("image used");
         return img;
+
     }
 }

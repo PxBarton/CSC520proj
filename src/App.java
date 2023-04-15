@@ -99,16 +99,16 @@ public class App extends Application {
                 ImageFilter blurImage = new ImageFilter();
 
                 try {
-                    VBox filterBox = blurImage.blur(imageDisplay, file, blurWindow);
+
+                    VBox filterBox = blurImage.blur(imageDisplay, file, blurWindow, display);
                     Scene blurScene = new Scene(filterBox, 600, 600);
                     blurWindow.setScene(blurScene);
                     blurWindow.show();
-                    if (blurImage.open == false) {
-                        blurWindow.close();
-                    }
+
 
                 }
                 catch (IOException e) {}
+                //display.setImage(file.getImage());
             }
         });
 
