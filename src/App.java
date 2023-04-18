@@ -113,6 +113,7 @@ public class App extends Application {
                 }
                 catch (IOException e) {}
                 //display.setImage(file.getImage());
+
             }
         });
 
