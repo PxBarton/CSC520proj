@@ -34,12 +34,12 @@ public class App extends Application {
         // Image is the JavaFX image class object
         ImageDisplay imageDisplay = new ImageDisplay();
         imageDisplay.setImage(file.getImage());
-        ImageView display = new ImageView(file.getImage());
-        display.setX(50);
-        display.setY(25);
-        display.setFitHeight(400);
-        display.setFitWidth(500);
-        display.setPreserveRatio(true);
+        ImageView view = new ImageView(file.getImage());
+        view.setX(50);
+        view.setY(25);
+        view.setFitHeight(400);
+        view.setFitWidth(500);
+        view.setPreserveRatio(true);
 
         stage.setTitle("Menu Sample");
         Scene scene = new Scene(new VBox(), 1000, 800);
@@ -63,7 +63,11 @@ public class App extends Application {
             public void handle(ActionEvent t) {
                 // code to open a file with a file picker would go here
                 // maybe using methods from ImageFile class
-
+                try {
+                    file.openFile(stage, view);
+                }
+                catch (FileNotFoundException x) {}
+                imageDisplay.setImage(file.getImage());
             }
         });
 
@@ -100,7 +104,7 @@ public class App extends Application {
 
                 try {
 
-                    VBox filterBox = blurImage.blur(imageDisplay, file, blurWindow, display);
+                    VBox filterBox = blurImage.blur(imageDisplay, file, blurWindow, view);
                     Scene blurScene = new Scene(filterBox, 600, 600);
                     blurWindow.setScene(blurScene);
                     blurWindow.show();
@@ -118,7 +122,7 @@ public class App extends Application {
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
 
         // combines the menuBar, the Vbox and the ImageView
-        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, vbox, display);
+        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, vbox, view);
         stage.setScene(scene);
         stage.show();
     }

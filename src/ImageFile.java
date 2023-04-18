@@ -1,8 +1,12 @@
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 
 public class ImageFile {
@@ -29,6 +33,19 @@ public class ImageFile {
         System.out.println("image used");
         return img;
 
+    }
+
+    static File fileIn;
+    static final FileChooser fileChooser = new FileChooser();
+    static ImageView display = new ImageView();
+
+    public void openFile(Stage stage, ImageView view) throws FileNotFoundException {
+        fileIn = fileChooser.showOpenDialog(stage);
+        fileStream = new FileInputStream(fileIn);
+        Image newImage = new Image(fileStream);
+        img = newImage;
+
+        view.setImage(img);
     }
 }
 
