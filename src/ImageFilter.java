@@ -83,7 +83,7 @@ public class ImageFilter {
                 original.setImage(imageView.getImage());
                 window.close();
                 mainDisplay.setImage(original.getImage());
-
+                imageDisplay.setImage(original.getImage());
             }
         });
 

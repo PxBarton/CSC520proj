@@ -75,7 +75,8 @@ public class App extends Application {
         MenuItem saveFile = new MenuItem("Save");
         saveFile.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
-                // code to save a file would go here
+                file.saveFile(/*file, */stage, view);
+                System.out.println("Image Saved");
 
             }
         });

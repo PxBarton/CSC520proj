@@ -1,12 +1,17 @@
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import javafx.embed.swing.SwingFXUtils;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 
 public class ImageFile {
@@ -40,6 +45,7 @@ public class ImageFile {
     static ImageView display = new ImageView();
 
     public void openFile(Stage stage, ImageView view) throws FileNotFoundException {
+        setExtFilters();
         fileIn = fileChooser.showOpenDialog(stage);
         fileStream = new FileInputStream(fileIn);
         Image newImage = new Image(fileStream);
@@ -47,28 +53,33 @@ public class ImageFile {
 
         view.setImage(img);
     }
-}
 
-//save image file
-//import java.io.*;
+    private void setExtFilters() {
+        ImageFile.fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("JPEG Files", "*.jpg"),
+            new FileChooser.ExtensionFilter("PNG Files", ".png"),
+            new FileChooser.ExtensionFilter("GIF Files", "*.gif")
+        );
+    }
 
-/**
-
-public class SaveImageFile {
-    public static void main(String[] args) {
-        try {
-            FileOutputStream fos = new FileOutputStream("src\\waveworld5.png");
-            byte[] bytes = content.getBytes();
-            fos.write(bytes);
-            fos.close();
-            System.out.println("File successfully saved. ");
+    //Save Image File
+    public static void saveFile(/*ImageFile content,*/ Stage stage, ImageView view) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        fileChooser.setInitialDirectory(new File("C://"));
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            String name = file.getName();
+            String extension = name.substring(1+name.lastIndexOf(".")).toLowerCase();
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(view.getImage(),
+                        null), extension /*"png"*/, file);
+            } catch (IOException ex) {
+                Logger.getLogger(
+                        FileChooser.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        catch (IOExcetpion e){
-            System.out.println("An error occurred: " + e.getMessage());
-            e.printStackTrace();
-        }
-
     }
 
 }
- */
+
