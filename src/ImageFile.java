@@ -12,10 +12,20 @@ import javafx.stage.Stage;
 public class ImageFile {
     FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
     Image img;
+    WritableImage canvas;
+    int width;
+    int height;
+    int canvasWidth;
+    int canvasHeight;
 
 
     public ImageFile(Image source) throws FileNotFoundException {
         img = source;
+        width = (int)source.getWidth();
+        height = (int)source.getHeight();
+        canvasWidth = width;
+        canvasHeight = height;
+        System.out.println(width + " x " + height);
     }
 
     public void setImage(Image image) {
@@ -25,6 +35,7 @@ public class ImageFile {
 
     public void setImage(WritableImage image) {
         img = image;
+        System.out.println("image file set" );
     }
 
 
