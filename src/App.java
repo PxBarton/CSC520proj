@@ -15,6 +15,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -26,9 +27,11 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         // just for basic test run, to display an image from a file
         // create a new ImageFile, this is our class
-        FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
+        String path = "src\\waveworld5.png";
+        FileInputStream fileStream = new FileInputStream(path);
         Image source = new Image(fileStream);
         ImageFile file = new ImageFile(source);
+        file.filePath = path;
         // img is a public class variable of class ImageFile
         // img holds the actual image data
         // Image is the JavaFX image class object
@@ -37,12 +40,12 @@ public class App extends Application {
         ImageView view = new ImageView(file.getImage());
         view.setX(50);
         view.setY(25);
-        view.setFitHeight(400);
-        view.setFitWidth(500);
+        view.setFitHeight(500);
+        //view.setFitWidth(500);
         view.setPreserveRatio(true);
 
         stage.setTitle("Menu Sample");
-        Scene scene = new Scene(new VBox(), 1000, 800);
+        Scene scene = new Scene(new VBox(),1000, 800);
 
         MenuBar menuBar = new MenuBar();
 
@@ -50,8 +53,32 @@ public class App extends Application {
         final VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
-        vbox.setPadding(new Insets(0, 10, 0, 10));
+        vbox.setPadding(new Insets(100, 10, 0, 10));
 
+
+        final HBox field1 = new HBox();
+        field1.setAlignment(Pos.CENTER);
+        field1.setSpacing(20);
+        field1.setPadding(new Insets(5, 10, 5, 10));
+
+        Label fileNameLabel1 = new Label("File Name: ");
+        Label fileNameLabel2 = new Label(file.filePath);
+
+        final HBox field2 = new HBox();
+        field2.setAlignment(Pos.CENTER);
+        field2.setSpacing(20);
+        field2.setPadding(new Insets(5, 10, 5, 10));
+
+        Label fileWidthLabel1 = new Label("Width: ");
+        Label fileWidthLabel2 = new Label(String.valueOf(file.width));
+
+        final HBox field3 = new HBox();
+        field3.setAlignment(Pos.CENTER);
+        field3.setSpacing(20);
+        field3.setPadding(new Insets(5, 10, 5, 10));
+
+        Label fileHeightLabel1 = new Label("Height: ");
+        Label fileHeightLabel2 = new Label(String.valueOf(file.height));
 
         // Menu creates each option across the top menu bar
         Menu menuFile = new Menu("File");
@@ -68,6 +95,9 @@ public class App extends Application {
                 }
                 catch (FileNotFoundException x) {}
                 imageDisplay.setImage(file.getImage());
+                fileNameLabel2.setText(file.filePath);
+                fileWidthLabel2.setText(String.valueOf(file.width));
+                fileHeightLabel2.setText(String.valueOf(file.height));
             }
         });
 
@@ -92,7 +122,30 @@ public class App extends Application {
         // --- Menu Edit
         Menu menuImage = new Menu("Image");
 
-        // --- Menu View
+        MenuItem imageSize = new MenuItem("Image Size");
+        imageSize.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                Stage resizeWindow = new Stage();
+
+                try {
+                    VBox resizeBox = FileUtilities.resizeImage(file, resizeWindow, fileWidthLabel2, fileHeightLabel2);
+                    Scene resizeScene = new Scene(resizeBox, 400, 300);
+                    resizeWindow.setScene(resizeScene);
+                    resizeWindow.show();
+                }
+                catch (IOException e) {}
+
+
+                System.out.println(file.width);
+            }
+        });
+
+
+        MenuItem canvasSize = new MenuItem("Canvas Size");
+
+        menuImage.getItems().addAll(imageSize, canvasSize);
+
+        // --- Menu Filter
         Menu menuFilter = new Menu("Filter");
 
         MenuItem blurImage = new MenuItem("Blur");
@@ -122,8 +175,14 @@ public class App extends Application {
         // combines the Menus on the MenuBar
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
 
+        field1.getChildren().addAll(fileNameLabel1, fileNameLabel2);
+        field2.getChildren().addAll(fileWidthLabel1, fileWidthLabel2);
+        field3.getChildren().addAll(fileHeightLabel1, fileHeightLabel2);
+
+        vbox.getChildren().addAll(view, field1, field2, field3);
+
         // combines the menuBar, the Vbox and the ImageView
-        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, vbox, view);
+        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, vbox);
         stage.setScene(scene);
         stage.show();
     }

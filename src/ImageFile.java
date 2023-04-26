@@ -18,6 +18,8 @@ public class ImageFile {
     int canvasWidth;
     int canvasHeight;
 
+    String filePath;
+
 
     public ImageFile(Image source) throws FileNotFoundException {
         img = source;
@@ -55,6 +57,10 @@ public class ImageFile {
         fileStream = new FileInputStream(fileIn);
         Image newImage = new Image(fileStream);
         img = newImage;
+        filePath = fileIn.getPath();
+        width = (int)img.getWidth();
+        height = (int)img.getHeight();
+
 
         view.setImage(img);
     }
