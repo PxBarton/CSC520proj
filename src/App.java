@@ -198,7 +198,7 @@ public class App extends Application {
         // combines the Menus on the MenuBar
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
 
-        Slider sliderZoom = new Slider(0, 500, 100);
+        Slider sliderZoom = new Slider(10, 500, 100);
         sliderZoom.setShowTickLabels(true);
         sliderZoom.setShowTickMarks(true);
         sliderZoom.setMajorTickUnit(100);
