@@ -4,6 +4,8 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.io.FileInputStream;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +18,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 
 public class App extends Application {
     //public App() throws FileNotFoundException {
@@ -40,12 +46,20 @@ public class App extends Application {
         ImageView view = new ImageView(file.getImage());
         view.setX(50);
         view.setY(25);
-        view.setFitHeight(500);
-        //view.setFitWidth(500);
+        int viewHeight = 500;
+        int viewWidth = 700;
+        view.setFitHeight(viewHeight);
+        view.setFitWidth(viewWidth);
         view.setPreserveRatio(true);
 
-        stage.setTitle("Menu Sample");
-        Scene scene = new Scene(new VBox(),1000, 800);
+        final ScrollPane sp = new ScrollPane();
+        sp.setPrefViewportHeight(600);
+        sp.setPrefViewportWidth(800);
+        sp.setVmax(1500);
+        sp.setHmax(1500);
+
+        stage.setTitle("Image Editor App");
+        Scene scene = new Scene(new VBox(),1200, 800);
 
         MenuBar menuBar = new MenuBar();
 
@@ -55,6 +69,15 @@ public class App extends Application {
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(100, 10, 0, 10));
 
+        final VBox vbox2 = new VBox();
+        vbox2.setAlignment(Pos.CENTER);
+        vbox2.setSpacing(10);
+        vbox2.setPadding(new Insets(100, 10, 0, 10));
+
+        final HBox mainHbox = new HBox();
+        mainHbox.setAlignment(Pos.CENTER);
+        mainHbox.setSpacing(20);
+        mainHbox.setPadding(new Insets(5, 10, 5, 10));
 
         final HBox field1 = new HBox();
         field1.setAlignment(Pos.CENTER);
@@ -175,14 +198,49 @@ public class App extends Application {
         // combines the Menus on the MenuBar
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
 
+        Slider sliderZoom = new Slider(0, 500, 100);
+        sliderZoom.setShowTickLabels(true);
+        sliderZoom.setShowTickMarks(true);
+        sliderZoom.setMajorTickUnit(100);
+        sliderZoom.setBlockIncrement(10);
+
+        sliderZoom.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<?extends Number> observable, Number oldValue, Number newValue){
+                try {
+                    //label2.setText("");
+                    view.setFitHeight(viewHeight  * newValue.doubleValue() * .01);
+                    view.setFitWidth(viewWidth  * newValue.doubleValue() * .01);
+                }
+                catch(Exception e) {
+                    System.out.println("");
+                }
+            }
+        });
+
+        final VBox zoomBox = new VBox();
+        zoomBox.setAlignment(Pos.CENTER);
+        zoomBox.setSpacing(10);
+        zoomBox.setPadding(new Insets(20, 10, 0, 10));
+
+        Label zoomLabel = new Label("Display Size:");
+
         field1.getChildren().addAll(fileNameLabel1, fileNameLabel2);
         field2.getChildren().addAll(fileWidthLabel1, fileWidthLabel2);
         field3.getChildren().addAll(fileHeightLabel1, fileHeightLabel2);
+        zoomBox.getChildren().addAll(zoomLabel, sliderZoom);
 
-        vbox.getChildren().addAll(view, field1, field2, field3);
+        VBox viewBox = new VBox();
+        viewBox.getChildren().addAll(view);
+        viewBox.setAlignment(Pos.CENTER);
+        sp.setContent(viewBox);
+        vbox.getChildren().addAll(sp);
+
+        vbox2.getChildren().addAll(field1, field2, field3, zoomBox);
+
+        mainHbox.getChildren().addAll(vbox, vbox2);
 
         // combines the menuBar, the Vbox and the ImageView
-        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, vbox);
+        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, mainHbox);
         stage.setScene(scene);
         stage.show();
     }

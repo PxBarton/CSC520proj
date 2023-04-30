@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="dimensions, canvas dimensions">
+    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="image resize function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileUtilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ImageFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageFile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682395269992</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="image resize function">
+      <created>1682474835172</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682474835172</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -116,6 +121,7 @@
     <MESSAGE value="filter confirm button" />
     <MESSAGE value="updated filter" />
     <MESSAGE value="dimensions, canvas dimensions" />
-    <option name="LAST_COMMIT_MESSAGE" value="dimensions, canvas dimensions" />
+    <MESSAGE value="image resize function" />
+    <option name="LAST_COMMIT_MESSAGE" value="image resize function" />
   </component>
 </project>
