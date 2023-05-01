@@ -10,7 +10,8 @@ import javafx.stage.Stage;
 
 
 public class ImageFile {
-    FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
+    //FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
+    FileInputStream fileStream;
     Image img;
     WritableImage canvas;
     int width;

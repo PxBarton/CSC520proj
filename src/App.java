@@ -33,17 +33,22 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         // just for basic test run, to display an image from a file
         // create a new ImageFile, this is our class
-        String path = "src\\waveworld5.png";
-        FileInputStream fileStream = new FileInputStream(path);
-        Image source = new Image(fileStream);
-        ImageFile file = new ImageFile(source);
-        file.filePath = path;
+        //String path = "src\\waveworld5.png";
+        //FileInputStream fileStream = new FileInputStream(path);
+        //Image source = new Image(fileStream);
+
+        //ImageFile file = new ImageFile(source);
+        //file.filePath = path;
         // img is a public class variable of class ImageFile
         // img holds the actual image data
         // Image is the JavaFX image class object
+        WritableImage blank = new WritableImage(500, 500);
+        ImageFile file = new ImageFile(blank);
         ImageDisplay imageDisplay = new ImageDisplay();
-        imageDisplay.setImage(file.getImage());
-        ImageView view = new ImageView(file.getImage());
+        //imageDisplay.setImage(file.getImage());
+        //ImageView view = new ImageView(file.getImage());
+        imageDisplay.setImage(blank);
+        ImageView view = new ImageView(blank);
         view.setX(50);
         view.setY(25);
         int viewHeight = 500;
@@ -67,7 +72,7 @@ public class App extends Application {
         final VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
-        vbox.setPadding(new Insets(100, 10, 0, 10));
+        vbox.setPadding(new Insets(60, 10, 0, 10));
 
         final VBox vbox2 = new VBox();
         vbox2.setAlignment(Pos.CENTER);
@@ -233,9 +238,9 @@ public class App extends Application {
         viewBox.getChildren().addAll(view);
         viewBox.setAlignment(Pos.CENTER);
         sp.setContent(viewBox);
-        vbox.getChildren().addAll(sp);
+        vbox.getChildren().addAll(sp, field1);
 
-        vbox2.getChildren().addAll(field1, field2, field3, zoomBox);
+        vbox2.getChildren().addAll(field2, field3, zoomBox);
 
         mainHbox.getChildren().addAll(vbox, vbox2);
 
@@ -244,7 +249,11 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    //public static void main(String[] args) {
-    //    launch(args);
-    // }
+
+    public class Main {
+        public void main(String[] args) {
+            launch(args);
+        }
+    }
+
 }
