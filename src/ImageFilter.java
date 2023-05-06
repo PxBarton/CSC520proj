@@ -84,6 +84,7 @@ public class ImageFilter {
                 window.close();
                 mainDisplay.setImage(original.getImage());
                 imageDisplay.setImage(original.getImage());
+
             }
         });
 

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="CSC520proj:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="filter confirm button">
+    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="view size (zoom-in) slider + ScrollPane system">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSC520proj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CSC520proj.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ImageFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ImageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="FayBackup" />
+        <entry key="$PROJECT_DIR$" value="paul_branch2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,8 +53,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/fSall/opencv/build/java/x64/opencv_java455.dll",
-    "project.structure.last.edited": "Modules",
+    "last_opened_file_path": "C:/Users/Xaphen/openCV/opencv/build/java/x64/opencv_java455.dll",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
@@ -93,7 +96,42 @@
       <option name="project" value="LOCAL" />
       <updated>1681588830064</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updated filter">
+      <created>1681857030026</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681857030026</updated>
+    </task>
+    <task id="LOCAL-00006" summary="dimensions, canvas dimensions">
+      <created>1682395269992</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682395269992</updated>
+    </task>
+    <task id="LOCAL-00007" summary="image resize function">
+      <created>1682474835172</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682474835172</updated>
+    </task>
+    <task id="LOCAL-00008" summary="view size (zoom-in) slider + ScrollPane system">
+      <created>1682892623762</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682892623762</updated>
+    </task>
+    <task id="LOCAL-00009" summary="view size (zoom-in) slider + ScrollPane system">
+      <created>1682893941808</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682893941808</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -101,6 +139,10 @@
     <MESSAGE value="new files" />
     <MESSAGE value="utility functions, filter" />
     <MESSAGE value="filter confirm button" />
-    <option name="LAST_COMMIT_MESSAGE" value="filter confirm button" />
+    <MESSAGE value="updated filter" />
+    <MESSAGE value="dimensions, canvas dimensions" />
+    <MESSAGE value="image resize function" />
+    <MESSAGE value="view size (zoom-in) slider + ScrollPane system" />
+    <option name="LAST_COMMIT_MESSAGE" value="view size (zoom-in) slider + ScrollPane system" />
   </component>
 </project>

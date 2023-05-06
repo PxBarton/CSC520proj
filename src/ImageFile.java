@@ -15,12 +15,25 @@ import java.util.logging.Level;
 
 
 public class ImageFile {
-    FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
+    //FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
+    FileInputStream fileStream;
     Image img;
+    WritableImage canvas;
+    int width;
+    int height;
+    int canvasWidth;
+    int canvasHeight;
+
+    String filePath;
 
 
     public ImageFile(Image source) throws FileNotFoundException {
         img = source;
+        width = (int)source.getWidth();
+        height = (int)source.getHeight();
+        canvasWidth = width;
+        canvasHeight = height;
+        System.out.println(width + " x " + height);
     }
 
     public void setImage(Image image) {
@@ -30,6 +43,7 @@ public class ImageFile {
 
     public void setImage(WritableImage image) {
         img = image;
+        System.out.println("image file set" );
     }
 
 
@@ -50,6 +64,10 @@ public class ImageFile {
         fileStream = new FileInputStream(fileIn);
         Image newImage = new Image(fileStream);
         img = newImage;
+        filePath = fileIn.getPath();
+        width = (int)img.getWidth();
+        height = (int)img.getHeight();
+
 
         view.setImage(img);
     }
