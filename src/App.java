@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -42,6 +43,7 @@ public class App extends Application {
         // img is a public class variable of class ImageFile
         // img holds the actual image data
         // Image is the JavaFX image class object
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         WritableImage blank = new WritableImage(500, 500);
         ImageFile file = new ImageFile(blank);
         ImageDisplay imageDisplay = new ImageDisplay();
@@ -170,6 +172,22 @@ public class App extends Application {
 
 
         MenuItem canvasSize = new MenuItem("Canvas Size");
+        canvasSize.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                Stage canvResizeWindow = new Stage();
+
+                try {
+                    VBox resizeBox = FileUtilities.resizeCanvas(imageDisplay, file, canvResizeWindow, view);
+                    Scene resizeScene = new Scene(resizeBox, 400, 300);
+                    canvResizeWindow.setScene(resizeScene);
+                    canvResizeWindow.show();
+                }
+                catch (IOException e) {}
+
+
+                System.out.println(file.width);
+            }
+        });
 
         menuImage.getItems().addAll(imageSize, canvasSize);
 
@@ -198,7 +216,97 @@ public class App extends Application {
             }
         });
 
-        menuFilter.getItems().addAll(blurImage);
+        MenuItem imageBrightness = new MenuItem("Brightness/Contrast");
+        imageBrightness.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                // filter, popup
+                Stage brightnessWindow = new Stage();
+                ImageFilter brightnessFilter = new ImageFilter();
+
+                try {
+
+                    VBox filterBox = brightnessFilter.brightness(imageDisplay, file, brightnessWindow, view);
+                    Scene blurScene = new Scene(filterBox, 600, 600);
+                    brightnessWindow.setScene(blurScene);
+                    brightnessWindow.show();
+
+
+                }
+                catch (IOException e) {}
+                //display.setImage(file.getImage());
+
+            }
+        });
+
+        MenuItem imageHSV = new MenuItem("Hue Saturation Value ");
+        imageHSV.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                // filter, popup
+                Stage hsvWindow = new Stage();
+                ImageFilter hsvFilter = new ImageFilter();
+
+                try {
+
+                    VBox filterBox = hsvFilter.hueSatVal(imageDisplay, file, hsvWindow, view);
+                    Scene desatScene = new Scene(filterBox, 600, 600);
+                    hsvWindow.setScene(desatScene);
+                    hsvWindow.show();
+
+
+                }
+                catch (IOException e) {}
+                //display.setImage(file.getImage());
+
+            }
+        });
+
+        MenuItem imageDesat = new MenuItem("Desaturate");
+        imageDesat.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                // filter, popup
+                Stage desatWindow = new Stage();
+                ImageFilter desatFilter = new ImageFilter();
+
+                try {
+
+                    VBox filterBox = desatFilter.desaturate(imageDisplay, file, desatWindow, view);
+                    Scene desatScene = new Scene(filterBox, 600, 600);
+                    desatWindow.setScene(desatScene);
+                    desatWindow.show();
+
+
+                }
+                catch (IOException e) {}
+                //display.setImage(file.getImage());
+
+            }
+        });
+
+        MenuItem imageInvert = new MenuItem("Invert");
+        imageInvert.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                // filter, popup
+                Stage invertWindow = new Stage();
+                ImageFilter invertFilter = new ImageFilter();
+
+                try {
+
+                    VBox filterBox = invertFilter.invert(imageDisplay, file, invertWindow, view);
+                    Scene invertScene = new Scene(filterBox, 600, 600);
+                    invertWindow.setScene(invertScene);
+                    invertWindow.show();
+
+
+                }
+                catch (IOException e) {}
+                //display.setImage(file.getImage());
+
+            }
+        });
+
+
+
+        menuFilter.getItems().addAll(blurImage, imageBrightness, imageDesat, imageInvert);
 
         // combines the Menus on the MenuBar
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
