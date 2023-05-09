@@ -180,9 +180,12 @@ public class FileUtilities {
         return vbox;
     }
 
-    public static void resizeCanvas(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay)
-            throws IOException {
 
+
+    public static VBox resizeCanvas(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay)
+            throws IOException {
+        VBox vbox = new VBox();
+        return vbox;
     }
     public static void cropImage(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay)
             throws IOException {
