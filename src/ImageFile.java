@@ -1,31 +1,42 @@
-
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.*;
 import javafx.embed.swing.SwingFXUtils;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import javax.imageio.ImageIO;
 
+/**
+ * A public class representing the current opened image file
+ */
 public class ImageFile {
-    //FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
-    FileInputStream fileStream;
-    Image img;
-    WritableImage canvas;
+
+    private FileInputStream fileStream;
+    private Image img;
+    private WritableImage canvas;
     int width;
     int height;
     int canvasWidth;
     int canvasHeight;
 
+    private File fileIn;
+    private FileChooser fileChooser = new FileChooser();
+    private ImageView display = new ImageView();
+
     String filePath;
 
-
+    /**
+     * constructor for ImageFile
+     * @param source
+     * @throws FileNotFoundException
+     */
     public ImageFile(Image source) throws FileNotFoundException {
         img = source;
         width = (int)source.getWidth();
@@ -35,28 +46,40 @@ public class ImageFile {
         System.out.println(width + " x " + height);
     }
 
+    /**
+     * sets the image for the ImageFile
+     * @param image a JavaFX Image object
+     */
     public void setImage(Image image) {
         img = image;
         System.out.println("image file set" );
     }
 
+    /**
+     * sets the image for the ImageFile
+     * @param image a JavaFX WritableImage object
+     */
     public void setImage(WritableImage image) {
         img = image;
         System.out.println("image file set" );
     }
 
-
-
+    /**
+     * returs the current image
+     * @return
+     */
     public Image getImage() {
         System.out.println("image used");
         return img;
 
     }
 
-    static File fileIn;
-    static final FileChooser fileChooser = new FileChooser();
-    static ImageView display = new ImageView();
-
+    /**
+     * opens a file from a file chooser dialogue
+     * @param stage
+     * @param view
+     * @throws FileNotFoundException
+     */
     public void openFile(Stage stage, ImageView view) throws FileNotFoundException {
         fileIn = fileChooser.showOpenDialog(stage);
         fileStream = new FileInputStream(fileIn);
@@ -69,16 +92,26 @@ public class ImageFile {
 
         view.setImage(img);
     }
+
+    /**
+     * helper function to provide file extension options during save
+     */
     private void setExtFilters() {
-        ImageFile.fileChooser.getExtensionFilters().addAll(
+        this.fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPEG Files", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG Files", ".png"),
                 new FileChooser.ExtensionFilter("GIF Files", "*.gif")
         );
     }
-    //Save Image File
-    public static void saveFile(/*ImageFile content,*/ Stage stage, ImageView view) {
-        FileChooser fileChooser = new FileChooser();
+
+    /**
+     * save the file using the file chooser dialogue
+     * renaming and extension options avaiable
+     * @param stage
+     * @param view
+     */
+    public void saveFile(/*ImageFile content,*/ Stage stage, ImageView view) {
+        //FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         fileChooser.setInitialDirectory(new File("C://"));
         File file = fileChooser.showSaveDialog(stage);
@@ -96,28 +129,5 @@ public class ImageFile {
     }
 }
 
-//save image file
-//import java.io.*;
-
-/**
-
-public class SaveImageFile {
-    public static void main(String[] args) {
-        try {
-            FileOutputStream fos = new FileOutputStream("src\\waveworld5.png");
-            byte[] bytes = content.getBytes();
-            fos.write(bytes);
-            fos.close();
-            System.out.println("File successfully saved. ");
-        }
-        catch (IOExcetpion e){
-            System.out.println("An error occurred: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-    }
-
-}
- */
 
 

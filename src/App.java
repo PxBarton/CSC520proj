@@ -1,8 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 import java.io.FileInputStream;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,24 +14,17 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 
 public class App extends Application {
-    //public App() throws FileNotFoundException {
-    //}
-
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
-        // just for basic test run, to display an image from a file
+
         // create a new ImageFile, this is our class
 
         // test filters
@@ -52,7 +44,9 @@ public class App extends Application {
         // img is a public class variable of class ImageFile
         // img holds the actual image data
         // Image is the JavaFX image class object
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+        //blank default image when opening app
         WritableImage blank = new WritableImage(500, 500);
         ImageFile file = new ImageFile(blank);
         ImageDisplay imageDisplay = new ImageDisplay();
@@ -79,7 +73,6 @@ public class App extends Application {
 
         MenuBar menuBar = new MenuBar();
 
-        //GridPane pane = new GridPane();
         final VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
@@ -90,11 +83,14 @@ public class App extends Application {
         vbox2.setSpacing(10);
         vbox2.setPadding(new Insets(100, 10, 0, 10));
 
+        // The main area under the menu
+        // Image on the left, image size & display slider on the right
         final HBox mainHbox = new HBox();
         mainHbox.setAlignment(Pos.CENTER);
         mainHbox.setSpacing(20);
         mainHbox.setPadding(new Insets(5, 10, 5, 10));
 
+        // HBox for file name
         final HBox field1 = new HBox();
         field1.setAlignment(Pos.CENTER);
         field1.setSpacing(20);
@@ -103,6 +99,7 @@ public class App extends Application {
         Label fileNameLabel1 = new Label("File Name: ");
         Label fileNameLabel2 = new Label(file.filePath);
 
+        // HBox for image width
         final HBox field2 = new HBox();
         field2.setAlignment(Pos.CENTER);
         field2.setSpacing(20);
@@ -111,6 +108,7 @@ public class App extends Application {
         Label fileWidthLabel1 = new Label("Width: ");
         Label fileWidthLabel2 = new Label(String.valueOf(file.width));
 
+        // HBox for image height
         final HBox field3 = new HBox();
         field3.setAlignment(Pos.CENTER);
         field3.setSpacing(20);
@@ -124,11 +122,11 @@ public class App extends Application {
 
         // MenuItem creates the submenu entries in a dropdown
         // visible when the Menu is clicked
+
+        // open a file
         MenuItem openFile = new MenuItem("Open");
         openFile.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
-                // code to open a file with a file picker would go here
-                // maybe using methods from ImageFile class
                 try {
                     file.openFile(stage, view);
                 }
@@ -140,7 +138,7 @@ public class App extends Application {
             }
         });
 
-
+        // saving a file
         MenuItem saveFile = new MenuItem("Save");
         saveFile.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -150,6 +148,7 @@ public class App extends Application {
             }
         });
 
+        // closing a file
         MenuItem closeFile = new MenuItem("Close");
         closeFile.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -162,6 +161,7 @@ public class App extends Application {
         // --- Menu Edit
         Menu menuImage = new Menu("Image");
 
+        // change the size of an image
         MenuItem imageSize = new MenuItem("Image Size");
         imageSize.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -180,7 +180,7 @@ public class App extends Application {
             }
         });
 
-
+        // flips the image vertically
         MenuItem flipVert = new MenuItem("Flip Vertical");
         flipVert.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -204,6 +204,7 @@ public class App extends Application {
         // --- Menu Filter
         Menu menuFilter = new Menu("Filter");
 
+        // blur an image
         MenuItem blurImage = new MenuItem("Blur");
         blurImage.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -226,6 +227,7 @@ public class App extends Application {
             }
         });
 
+        // change the brightness and contrast of an image
         MenuItem imageBrightness = new MenuItem("Brightness/Contrast");
         imageBrightness.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -248,6 +250,7 @@ public class App extends Application {
             }
         });
 
+        // change the HSV settings of an image
         MenuItem imageHSV = new MenuItem("Hue Saturation Value ");
         imageHSV.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -270,6 +273,8 @@ public class App extends Application {
             }
         });
 
+        // desaturates an image
+        // does not actually convert color model to greyscale
         MenuItem imageDesat = new MenuItem("Desaturate");
         imageDesat.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -292,6 +297,7 @@ public class App extends Application {
             }
         });
 
+        // inverts the RGB colors of an image
         MenuItem imageInvert = new MenuItem("Invert");
         imageInvert.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -321,6 +327,7 @@ public class App extends Application {
         // combines the Menus on the MenuBar
         menuBar.getMenus().addAll(menuFile, menuImage, menuFilter);
 
+        // slider for the display size
         Slider sliderZoom = new Slider(10, 500, 100);
         sliderZoom.setShowTickLabels(true);
         sliderZoom.setShowTickMarks(true);
@@ -340,6 +347,7 @@ public class App extends Application {
             }
         });
 
+        // VBox for the display size slider
         final VBox zoomBox = new VBox();
         zoomBox.setAlignment(Pos.CENTER);
         zoomBox.setSpacing(10);
@@ -356,10 +364,14 @@ public class App extends Application {
         viewBox.getChildren().addAll(view);
         viewBox.setAlignment(Pos.CENTER);
         sp.setContent(viewBox);
+
+        // left VBox containing the image in the scrollpane
         vbox.getChildren().addAll(sp, field1);
 
+        // right VBox containing image size info and slider
         vbox2.getChildren().addAll(field2, field3, zoomBox);
 
+        // HBox containing laft and right VBoxes
         mainHbox.getChildren().addAll(vbox, vbox2);
 
         // combines the menuBar, the Vbox and the ImageView

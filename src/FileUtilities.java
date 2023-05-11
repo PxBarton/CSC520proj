@@ -29,8 +29,17 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.core.CvType;
 import org.opencv.imgproc.Imgproc;
 
+/**
+ * A class containing static methods for file format conversion
+ * and other transformations
+ */
 public class FileUtilities {
 
+    /**
+     * converts a JavaFX image to an OpenCV Mat
+     * @param src
+     * @return Mat : an OpenCV image matrix
+     */
     public static Mat convertToMat(Image src) {
         //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         int width = (int)src.getWidth();
@@ -45,6 +54,12 @@ public class FileUtilities {
         return mat;
     }
 
+    /**
+     * converts an OpenCV Mat image matrix to a JavaFX WritableImage
+     * @param image
+     * @return WritableImage
+     * @throws IOException
+     */
     public static WritableImage matToImage(Mat image) throws IOException {
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".jpg", image, matOfByte);
@@ -58,6 +73,15 @@ public class FileUtilities {
         return w_Image;
     }
 
+    /**
+     * changes dimensions of the actual ImageFile object image
+     * @param original the ImageFile image object
+     * @param window the popup window
+     * @param wLabel width label
+     * @param hLabel height label
+     * @return VBox : a VBox containing the image, size info and buttons
+     * @throws IOException
+     */
     public static VBox resizeImage(ImageFile original, Stage window, Label wLabel, Label hLabel)
             throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -181,12 +205,29 @@ public class FileUtilities {
     }
 
 
-
+    /**
+     * not implemented
+     * @param imageDisplay
+     * @param original
+     * @param window
+     * @param mainDisplay
+     * @return
+     * @throws IOException
+     */
     public static VBox resizeCanvas(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay)
             throws IOException {
         VBox vbox = new VBox();
         return vbox;
     }
+
+    /**
+     * not implemented
+     * @param imageDisplay
+     * @param original
+     * @param window
+     * @param mainDisplay
+     * @throws IOException
+     */
     public static void cropImage(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay)
             throws IOException {
         Image image  = imageDisplay.getImage();
@@ -195,6 +236,15 @@ public class FileUtilities {
         Rect rect;
     }
 
+    /**
+     * flips an image vertically
+     * @param img an ImageDisplay object (does not affect ImageFile image until confirmation)
+     * @param original the ImageFile image
+     * @param window the popup window
+     * @param mainDisplay the ImageView from the main App window
+     * @return VBox : a VBox containing the
+     * @throws IOException
+     */
     public static VBox flipImage(ImageDisplay img, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Image image  = img.getImage();

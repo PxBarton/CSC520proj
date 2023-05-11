@@ -19,8 +19,10 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+/**
+ * public class providing image filters
+ */
 public class ImageFilter {
-
 
     Mat src;
     //Slider slider1;
@@ -33,14 +35,15 @@ public class ImageFilter {
 
     WritableImage currentImage;
 
-    public void ImageFilter() {
-        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        //this.img = img;
-        //vbox.setAlignment(Pos.CENTER);
-        //vbox.setSpacing(10);
-        //vbox.setPadding(new Insets(10, 10, 10, 10));
-    }
-
+    /**
+     * blur filter
+     * @param imageDisplay ImageDisplay image for working image
+     * @param original ImageFile image updated upon confirmation
+     * @param window the popup window
+     * @param mainDisplay the ImageView object from App class, updated upon confirmation
+     * @return VBox : VBox containing the image, sliders, and buttons
+     * @throws IOException
+     */
     public VBox blur(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Image img = imageDisplay.getImage();
@@ -207,6 +210,15 @@ public class ImageFilter {
 
     }
 
+    /**
+     * desaturate filter (does not convert to greyscale)
+     * @param imageDisplay
+     * @param original
+     * @param window
+     * @param mainDisplay
+     * @return
+     * @throws IOException
+     */
     public VBox desaturate(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Image img = imageDisplay.getImage();
@@ -254,6 +266,7 @@ public class ImageFilter {
         return vbox;
     }
 
+
     public VBox invert(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Image img = imageDisplay.getImage();
@@ -300,6 +313,7 @@ public class ImageFilter {
         vbox.getChildren().addAll(imageView, bt1, bt2);
         return vbox;
     }
+
 
     public VBox hueSatVal(ImageDisplay imageDisplay, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -400,6 +414,12 @@ public class ImageFilter {
 
     }
 
+    /**
+     * tests for each filter
+     * @param imageDisplay
+     * @return
+     * @throws IOException
+     */
     public boolean filterTests(ImageDisplay imageDisplay) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Image img = imageDisplay.getImage();
