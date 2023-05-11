@@ -9,11 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="view size (zoom-in) slider + ScrollPane system">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/CSC520proj_jar.xml" afterDir="false" />
+    <list default="true" id="2d5b431e-39ce-4b27-9685-5b3cd90cc207" name="Changes" comment="additional filters + tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FileUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ImageDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ImageFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageFile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ImageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682893941808</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="additional filters + tests">
+      <created>1683524459598</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683524459598</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -147,6 +155,7 @@
     <MESSAGE value="dimensions, canvas dimensions" />
     <MESSAGE value="image resize function" />
     <MESSAGE value="view size (zoom-in) slider + ScrollPane system" />
-    <option name="LAST_COMMIT_MESSAGE" value="view size (zoom-in) slider + ScrollPane system" />
+    <MESSAGE value="additional filters + tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="additional filters + tests" />
   </component>
 </project>

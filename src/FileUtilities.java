@@ -194,4 +194,54 @@ public class FileUtilities {
         WritableImage writableImage = FileUtilities.matToImage(imageMat);
         Rect rect;
     }
+
+    public static VBox flipImage(ImageDisplay img, ImageFile original, Stage window, ImageView mainDisplay) throws IOException {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        Image image  = img.getImage();
+        Mat src = convertToMat(original.getImage());
+        WritableImage writableImage = FileUtilities.matToImage(src);
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        Button bt1 = new Button("OK");
+        Button bt2 = new Button("Cancel");
+
+        ImageView imageView = new ImageView(writableImage);
+        imageView.setX(50);
+        imageView.setY(25);
+        imageView.setFitHeight(400);
+        imageView.setFitWidth(550);
+        imageView.setPreserveRatio(true);
+
+        Mat dest = new Mat(src.rows(), src.cols(), src.type());
+        Core.flip(src, dest, -1);
+        imageView.setImage(FileUtilities.matToImage(dest));
+
+
+
+        //int newWidth;
+        //newHeight;
+        bt1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                original.setImage(imageView.getImage());
+                window.close();
+                mainDisplay.setImage(original.getImage());
+                img.setImage(original.getImage());
+
+
+            }
+        });
+
+        bt2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                window.close();
+            }
+        });
+
+        vbox.getChildren().addAll(imageView, bt1, bt2);
+        return vbox;
+    }
 }

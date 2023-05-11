@@ -7,7 +7,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.io.*;
+import javafx.embed.swing.SwingFXUtils;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import javax.imageio.ImageIO;
 
 public class ImageFile {
     //FileInputStream fileStream = new FileInputStream("src\\waveworld5.png");
@@ -65,6 +69,31 @@ public class ImageFile {
 
         view.setImage(img);
     }
+    private void setExtFilters() {
+        ImageFile.fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPEG Files", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG Files", ".png"),
+                new FileChooser.ExtensionFilter("GIF Files", "*.gif")
+        );
+    }
+    //Save Image File
+    public static void saveFile(/*ImageFile content,*/ Stage stage, ImageView view) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        fileChooser.setInitialDirectory(new File("C://"));
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            String name = file.getName();
+            String extension = name.substring(1+name.lastIndexOf(".")).toLowerCase();
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(view.getImage(),
+                        null), extension /*"png"*/, file);
+            } catch (IOException ex) {
+                Logger.getLogger(
+                        FileChooser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
 
 //save image file
@@ -90,3 +119,5 @@ public class SaveImageFile {
 
 }
  */
+
+

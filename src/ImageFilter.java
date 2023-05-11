@@ -409,16 +409,26 @@ public class ImageFilter {
         Mat dest = new Mat(src.rows(), src.cols(), src.type());
         Imgproc.blur(src, dest, new Size(2, 2));
         Imgproc.blur(src, dest, new Size(20, 20));
+        Imgproc.blur(src, dest, new Size(20, 100));
 
         src.convertTo(dest, -1, alpha, 0);
+        src.convertTo(dest, -1, alpha, -100);
+        src.convertTo(dest, -1, alpha, -255);
+        src.convertTo(dest, -1, alpha, 100);
+        src.convertTo(dest, -1, alpha, 255);
+
         src.convertTo(dest, -1, 1.0, beta);
+        src.convertTo(dest, -1, 0.0, beta);
+        src.convertTo(dest, -1, -1.0, beta);
+        src.convertTo(dest, -1, 2.0, beta);
+        src.convertTo(dest, -1, 3.0, beta);
 
         Imgproc.cvtColor(src, dest, Imgproc.COLOR_BGR2GRAY);
 
         Core.bitwise_not(src, dest);
 
         currentImage = FileUtilities.matToImage(dest);
-
+        System.out.println("Filter Tests Successful");
         return true;
     }
 

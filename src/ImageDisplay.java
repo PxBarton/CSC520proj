@@ -7,6 +7,11 @@ public class ImageDisplay {
     private Image source;
     private Image image;
 
+    public void ImageDisplay(Image source) {
+        this.source = source;
+        this.image = source;
+    }
+
     public void setImage(Image source) {
         this.source = source;
         this.image = source;

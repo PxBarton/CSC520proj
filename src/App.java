@@ -34,11 +34,20 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         // just for basic test run, to display an image from a file
         // create a new ImageFile, this is our class
-        //String path = "src\\waveworld5.png";
-        //FileInputStream fileStream = new FileInputStream(path);
-        //Image source = new Image(fileStream);
 
-        //ImageFile file = new ImageFile(source);
+        // test filters
+        String path = "src\\waveworld5.png";
+        FileInputStream fileStream = new FileInputStream(path);
+        Image testImage = new Image(fileStream);
+        ImageDisplay testDisplay = new ImageDisplay();
+        testDisplay.setImage(testImage);
+        ImageFilter test = new ImageFilter();
+        try {
+            test.filterTests(testDisplay);
+        }
+        catch (IOException e) {};
+
+        //ImageFile testFile = new ImageFile(testImage);
         //file.filePath = path;
         // img is a public class variable of class ImageFile
         // img holds the actual image data
@@ -136,6 +145,7 @@ public class App extends Application {
         saveFile.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
                 // code to save a file would go here
+                file.saveFile(stage, view);
 
             }
         });
@@ -171,16 +181,16 @@ public class App extends Application {
         });
 
 
-        MenuItem canvasSize = new MenuItem("Canvas Size");
-        canvasSize.setOnAction(new EventHandler<ActionEvent>() {
+        MenuItem flipVert = new MenuItem("Flip Vertical");
+        flipVert.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
-                Stage canvResizeWindow = new Stage();
+                Stage flipWindow = new Stage();
 
                 try {
-                    VBox resizeBox = FileUtilities.resizeCanvas(imageDisplay, file, canvResizeWindow, view);
-                    Scene resizeScene = new Scene(resizeBox, 400, 300);
-                    canvResizeWindow.setScene(resizeScene);
-                    canvResizeWindow.show();
+                    VBox flipBox = FileUtilities.flipImage(imageDisplay, file, flipWindow, view);
+                    Scene resizeScene = new Scene(flipBox, 600, 600);
+                    flipWindow.setScene(resizeScene);
+                    flipWindow.show();
                 }
                 catch (IOException e) {}
 
@@ -189,7 +199,7 @@ public class App extends Application {
             }
         });
 
-        menuImage.getItems().addAll(imageSize, canvasSize);
+        menuImage.getItems().addAll(imageSize, flipVert);
 
         // --- Menu Filter
         Menu menuFilter = new Menu("Filter");
